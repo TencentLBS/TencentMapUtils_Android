@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.tencent.tencentmap.mapsdk.vector.utils.demos"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="TencentMapSDK"
+            android:value="您的 key"/>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LargeNumberClusteringActivity"
+            android:label="@string/demo_desc_large_number_clustering"/>
+        <activity
+            android:name=".CustomClusteringActivity"
+            android:label="@string/demo_label_custom_clustering"/>
+        <activity
+            android:name=".ClusteringActivity"
+            android:label="@string/demo_label_clustering"/>
+
+        <activity
+            android:name=".animation.MarkerTranslateActivity"
+            android:label="@string/demo_label_marker_translation"
+            />
+
+        <activity
+            android:name=".StaticBmpProjectionActivity"
+            android:label="静态图坐标获取"/>
+    </application>
+
+</manifest>

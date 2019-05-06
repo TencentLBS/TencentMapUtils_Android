@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">TencentVectorMapUtils</string>
+
+    <string name="demo_label_clustering">点聚合： ClusteringActivity</string>
+    <string name="demo_desc_clustering">展示点聚合的效果</string>
+    <string name="demo_label_large_number_clustering">大量点聚合： LargeNumberClusteringActivity</string>
+    <string name="demo_desc_large_number_clustering">展示大量点聚合的效果</string>
+    <string name="demo_label_custom_clustering">自定义点聚合：CustomClusteringActivity</string>
+    <string name="demo_desc_custom_clustering">展示自定义的点聚合效果</string>
+    <string name="demo_label_marker_translation">Marker 平移动画:MarkerTranslateActivity</string>
+    <string name="demo_desc_marker_translation">展示平滑移动 marker 功能</string>
+
+    <string name="checkbox_cluster_switch">聚合开关</string>
+
+    <string name="rb_mini2">最小聚合值2</string>
+    <string name="rb_mini4">最小聚合值4</string>
+    <string name="rb_mini12">最小聚合值12</string>
+    <string name="demo_static_bmp_projection_label">StaticBmpProjectionActivity</string>
+    <string name="demo_static_bmp_projection_desc">静态图获取center及level</string>
+
+    <string name="start_animation">Start Animation</string>
+    <string name="cancel_animation">Cancel Animation</string>
+    <string name="end_animation">End Animation</string>
+</resources>
