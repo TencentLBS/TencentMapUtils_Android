@@ -1,10 +1,12 @@
-package com.tencent.tencentmap.mapsdk.vector.utils.demos.animation;
+package com.tencent.map.vector.util.demo.animation;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.tencent.map.vector.util.demo.R;
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory;
 import com.tencent.tencentmap.mapsdk.maps.MapView;
 import com.tencent.tencentmap.mapsdk.maps.TencentMap;
@@ -15,7 +17,6 @@ import com.tencent.tencentmap.mapsdk.maps.model.Marker;
 import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions;
 import com.tencent.tencentmap.mapsdk.maps.model.PolylineOptions;
 import com.tencent.tencentmap.mapsdk.vector.utils.animation.MarkerTranslateAnimator;
-import com.tencent.tencentmap.mapsdk.vector.utils.demos.R;
 
 public class MarkerTranslateActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -80,9 +81,8 @@ public class MarkerTranslateActivity extends AppCompatActivity implements View.O
                 new MarkerOptions(center)
                         .anchor(0.5f, 0.5f)
                         .icon(BitmapDescriptorFactory.fromResource(R.mipmap.taxi))
-                        //设置此属性 marker 会跟随地图旋转
                         .flat(true)
-                        //marker 逆时针方向旋转
+                        .rotation(90)
                         .clockwise(false));
 
         CameraPosition.Builder builder = new CameraPosition.Builder();
@@ -94,14 +94,7 @@ public class MarkerTranslateActivity extends AppCompatActivity implements View.O
         Button btnEndAnimation = (Button) findViewById(R.id.btn_end_animation);
 
         mTranslateAnimator = new MarkerTranslateAnimator(
-                //执行此平移动画的 marker
-                mMarker,
-                //动画持续时间
-                500 * 1000,
-                //平移动画点串
-                parseLine(line),
-                //marker 是否会根据传入的点串计算并执行旋转动画
-                true);
+                mMarker, 50 * 1000, parseLine(line), true);
 
         btnStartAnimation.setOnClickListener(this);
         btnCancelAnimation.setOnClickListener(this);

@@ -1,20 +1,22 @@
-package com.tencent.tencentmap.mapsdk.vector.utils.demos;
+package com.tencent.map.vector.util.demo.clustering;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.tencent.map.vector.util.demo.R;
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory;
 import com.tencent.tencentmap.mapsdk.maps.MapView;
 import com.tencent.tencentmap.mapsdk.maps.TencentMap;
 import com.tencent.tencentmap.mapsdk.maps.model.BitmapDescriptorFactory;
 import com.tencent.tencentmap.mapsdk.maps.model.LatLng;
-import com.tencent.tencentmap.mapsdk.maps.model.Marker;
 import com.tencent.tencentmap.mapsdk.maps.model.MarkerOptions;
 import com.tencent.tencentmap.mapsdk.vector.utils.clustering.Cluster;
 import com.tencent.tencentmap.mapsdk.vector.utils.clustering.ClusterItem;
@@ -22,7 +24,7 @@ import com.tencent.tencentmap.mapsdk.vector.utils.clustering.ClusterManager;
 import com.tencent.tencentmap.mapsdk.vector.utils.clustering.view.DefaultClusterRenderer;
 import com.tencent.tencentmap.mapsdk.vector.utils.ui.IconGenerator;
 
-public class CustomClusteringActivity extends Activity {
+public class CustomClusteringActivity extends AppCompatActivity {
 
     private TencentMap mTencentMap;
     private MapView mMapView;
@@ -51,7 +53,7 @@ public class CustomClusteringActivity extends Activity {
     }
 
     /* (non-Javadoc)
-     * @see android.app.Activity#onDestroy()
+     * @see android.app.Activity#cancel()
      */
     @Override
     protected void onDestroy() {
@@ -78,16 +80,13 @@ public class CustomClusteringActivity extends Activity {
         mTencentMap.setOnMarkerClickListener(mClusterManager);
         mTencentMap.setOnInfoWindowClickListener(mClusterManager);
 
+        //设置自定义infowindow
+        mTencentMap.setInfoWindowAdapter(mClusterManager);
+
         mClusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<PetalItem>() {
             @Override
             public boolean onClusterClick(Cluster<PetalItem> cluster) {
-                Toast.makeText(CustomClusteringActivity.this, "cluster clicked, cluster size:" + cluster.getSize(), Toast.LENGTH_SHORT).show();
-                Marker marker = ((DefaultClusterRenderer)mClusterManager.getRenderer()).getMarker(cluster);
-                if (marker == null) {
-                    Log.e("test", "marker is null");
-                } else {
-                    Log.e("test", "marker not null");
-                }
+                Toast.makeText(CustomClusteringActivity.this, "clustering clicked, clustering size:" + cluster.getSize(), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -97,10 +96,12 @@ public class CustomClusteringActivity extends Activity {
                     @Override
                     public void onClusterInfoWindowClick(Cluster<PetalItem> cluster) {
                         Toast.makeText(CustomClusteringActivity.this,
-                                "cluster infowindow clicked, cluster size:" +
+                                "clustering infowindow clicked, clustering size:" +
                                         cluster.getSize(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        mClusterManager.setClusterInfoWindowAdapter(new ClusterInfoWindowAdapter());
 
         mClusterManager.setOnClusterItemClickListener(
                 new ClusterManager.OnClusterItemClickListener<PetalItem>() {
@@ -109,12 +110,6 @@ public class CustomClusteringActivity extends Activity {
                         Toast.makeText(CustomClusteringActivity.this,
                                 "single marker clicked, position:" +
                                         petalItem.getPosition(), Toast.LENGTH_SHORT).show();
-                        Marker marker = ((DefaultClusterRenderer)mClusterManager.getRenderer()).getMarker(petalItem);
-                        if (marker == null) {
-                            Log.e("test", "marker is null");
-                        } else {
-                            Log.e("test", "marker not null");
-                        }
                         return false;
                     }
                 });
@@ -128,6 +123,8 @@ public class CustomClusteringActivity extends Activity {
                                         petalItem.getPosition(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        mClusterManager.setClusterItemInfoWindowAdapter(new ItemInfoWindowAdapter());
     }
 
     protected void addItem() {
@@ -171,6 +168,65 @@ public class CustomClusteringActivity extends Activity {
 
     }
 
+    private class ClusterInfoWindowAdapter implements ClusterManager.ClusterInfoWindowAdapter<PetalItem> {
+
+        @Override
+        public View getInfoWindow(Cluster<PetalItem> cluster) {
+            View root = View.inflate(getApplicationContext(), R.layout.demo_list_item, null);
+            root.setBackgroundColor(0xaaffffff);
+            TextView title = (TextView) root.findViewById(R.id.label);
+            title.setTextColor(0xff000000);
+            title.setText("包含元素数量:" + cluster.getSize());
+            return root;
+        }
+
+        @Override
+        public View getInfoContents(Cluster<PetalItem> cluster) {
+            return null;
+        }
+
+        @Override
+        public View getInfoWindowPressState(Cluster<PetalItem> cluster) {
+            View root = View.inflate(getApplicationContext(), R.layout.demo_list_item, null);
+            root.setBackgroundColor(0xaaffffff);
+            TextView title = (TextView) root.findViewById(R.id.label);
+            title.setTextColor(0xff000000);
+            title.setText("包含元素数量:" + cluster.getSize());
+            title.setTextColor(0xffaa1100);
+            return root;
+        }
+    }
+
+    private class ItemInfoWindowAdapter implements ClusterManager.ClusterItemInfoWindowAdapter<PetalItem> {
+
+        private View content = View.inflate(getApplicationContext(), R.layout.demo_list_item, null);
+
+        @Override
+        public View getInfoWindow(PetalItem item) {
+            View root = View.inflate(getApplicationContext(), R.layout.demo_list_item, null);
+            root.setBackgroundColor(0xaaffffff);
+            TextView title = (TextView) root.findViewById(R.id.label);
+            title.setText("经纬度:" + item.getPosition());
+            title.setTextColor(0xaaaaff00);
+            return root;
+        }
+
+        @Override
+        public View getInfoContents(PetalItem item) {
+            return null;
+        }
+
+        @Override
+        public View getInfoWindowPressState(PetalItem item) {
+            View root = View.inflate(getApplicationContext(), R.layout.demo_list_item, null);
+            root.setBackgroundColor(0xaaffffff);
+            TextView title = (TextView) root.findViewById(R.id.label);
+            title.setText("经纬度:" + item.getPosition());
+            title.setTextColor(0xff11aa00);
+            return root;
+        }
+    }
+
     class CustomIconClusterRenderer extends DefaultClusterRenderer<PetalItem> {
 
         private IconGenerator mIconGenerator = new IconGenerator(getApplicationContext());
@@ -209,7 +265,7 @@ public class CustomClusteringActivity extends Activity {
             Bitmap icon = mClusterIconGenerator.makeIcon();
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
             //不显示 infowindow
-            markerOptions.infoWindowEnable(false);
+//            markerOptions.infoWindowEnable(false);
         }
 
         @Override

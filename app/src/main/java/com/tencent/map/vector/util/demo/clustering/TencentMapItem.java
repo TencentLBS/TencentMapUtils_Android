@@ -1,10 +1,10 @@
-package com.tencent.tencentmap.mapsdk.vector.utils.demos;
+package com.tencent.map.vector.util.demo.clustering;
 
 import com.tencent.tencentmap.mapsdk.maps.model.LatLng;
 import com.tencent.tencentmap.mapsdk.vector.utils.clustering.ClusterItem;
 
 /**
- * Created by wangxiaokun on 16/9/5.
+ * @author wangxiaokun on 16/9/5.
  */
 public class TencentMapItem implements ClusterItem {
 

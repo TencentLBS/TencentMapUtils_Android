@@ -1,5 +1,4 @@
-package com.tencent.tencentmap.mapsdk.vector.utils.demos;
-
+package com.tencent.map.vector.util.demo.clustering;
 
 import com.tencent.tencentmap.mapsdk.vector.utils.clustering.Cluster;
 import com.tencent.tencentmap.mapsdk.vector.utils.clustering.ClusterItem;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by wangxiaokun on 16/9/5.
+ * @author wangxiaokun on 16/9/5.
  */
 public class CustomAlgrithom <T extends ClusterItem> implements Algorithm<T> {
 
@@ -49,7 +48,7 @@ public class CustomAlgrithom <T extends ClusterItem> implements Algorithm<T> {
 
     /**
      * Only demonstrate the implementation for Algorithm, may be useless in reality.
-     * @param v This parameter use for calculate the cluster, may be zoom level
+     * @param v This parameter use for calculate the clustering, may be zoom level
      *          of the map or other values.
      * @return
      */

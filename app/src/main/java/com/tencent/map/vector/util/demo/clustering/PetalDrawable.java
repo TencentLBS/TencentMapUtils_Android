@@ -1,4 +1,4 @@
-package com.tencent.tencentmap.mapsdk.vector.utils.demos;
+package com.tencent.map.vector.util.demo.clustering;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,10 +6,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Matrix;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
+import com.tencent.map.vector.util.demo.R;
+
 /**
- * Created by wangxiaokun on 16/8/24.
+ * @author wangxiaokun on 16/8/24.
  */
 public class PetalDrawable extends Drawable {
 
@@ -88,6 +91,6 @@ public class PetalDrawable extends Drawable {
 
     @Override
     public int getOpacity() {
-        return 0;
+        return PixelFormat.UNKNOWN;
     }
 }
